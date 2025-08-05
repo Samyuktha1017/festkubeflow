@@ -1,0 +1,13 @@
+name: Retrieve Features
+description: Retrieves historical features using Feast.
+inputs: []
+outputs: []
+implementation:
+  container:
+    image: python:3.9
+    command:
+      - sh
+      - -c
+      - |
+        pip install --quiet feast pandas
+        python3 3_retrieve_features.py

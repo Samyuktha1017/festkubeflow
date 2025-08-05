@@ -1,0 +1,13 @@
+name: Register Feature Store
+description: Applies the feature store configuration.
+inputs: []
+outputs: []
+implementation:
+  container:
+    image: python:3.9
+    command:
+      - sh
+      - -c
+      - |
+        pip install --quiet feast
+        python3 2_register_feature_store.py

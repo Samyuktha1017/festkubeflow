@@ -1,0 +1,61 @@
+{
+  "pipelines": [
+    {
+      "id": "student_exam_pipeline",
+      "name": "Student Exam Pass Prediction",
+      "runtime": "kfp",
+      "runtime_config": "kfp-local",
+      "source": "student_exam_pipeline.pipeline",
+      "description": "E2E pipeline for student exam pass prediction using Feast and sklearn.",
+      "nodes": [
+        {
+          "id": "node-ingest",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "label": "Ingest Data",
+          "component_source": "local",
+          "filename": "1_ingest_data/component.yaml"
+        },
+        {
+          "id": "node-register",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "label": "Register Feature Store",
+          "component_source": "local",
+          "filename": "2_register_feature_store/component.yaml"
+        },
+        {
+          "id": "node-retrieve",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "label": "Retrieve Features",
+          "component_source": "local",
+          "filename": "3_retrieve_features/component.yaml"
+        },
+        {
+          "id": "node-train",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "label": "Train Model",
+          "component_source": "local",
+          "filename": "4_train_model/component.yaml"
+        },
+        {
+          "id": "node-evaluate",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "label": "Evaluate Model",
+          "component_source": "local",
+          "filename": "5_evaluate_model/component.yaml"
+        }
+      ],
+      "connections": [
+        { "source": "node-ingest", "targets": ["node-register"] },
+        { "source": "node-register", "targets": ["node-retrieve"] },
+        { "source": "node-retrieve", "targets": ["node-train"] },
+        { "source": "node-train", "targets": ["node-evaluate"] }
+      ]
+    }
+  ],
+  "version": "3.0"
+}

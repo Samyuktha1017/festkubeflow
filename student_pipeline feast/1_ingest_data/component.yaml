@@ -1,0 +1,13 @@
+name: Ingest Student Data
+description: Ingests and prints sample student data.
+inputs: []
+outputs: []
+implementation:
+  container:
+    image: python:3.9
+    command:
+      - sh
+      - -c
+      - |
+        pip install --quiet pandas
+        python3 1_ingest_data.py

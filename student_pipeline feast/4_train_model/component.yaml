@@ -1,0 +1,13 @@
+name: Train Model
+description: Trains a Random Forest model on student features.
+inputs: []
+outputs: []
+implementation:
+  container:
+    image: python:3.9
+    command:
+      - sh
+      - -c
+      - |
+        pip install --quiet pandas scikit-learn joblib
+        python3 4_train_model.py

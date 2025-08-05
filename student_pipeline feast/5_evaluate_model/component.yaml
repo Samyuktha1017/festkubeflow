@@ -1,0 +1,23 @@
+name: Evaluate Trained Model
+description: Evaluate a trained ML model and return predictions and accuracy
+inputs:
+  - {name: model, type: Model}
+  - {name: X_test, type: JsonArray}
+  - {name: y_test, type: JsonArray}
+outputs:
+  - {name: predictions, type: JsonArray}
+  - {name: accuracy, type: Float}
+implementation:
+  container:
+    image: python:3.9
+    command:
+      - sh
+      - -c
+      - |
+        pip install --quiet pandas scikit-learn joblib
+        python3 evaluate_model.py           --model $0 --X_test $1 --y_test $2 --predictions $3 --accuracy $4
+      - {inputPath: model}
+      - {inputPath: X_test}
+      - {inputPath: y_test}
+      - {outputPath: predictions}
+      - {outputPath: accuracy}

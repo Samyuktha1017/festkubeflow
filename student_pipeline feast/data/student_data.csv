@@ -1,0 +1,5 @@
+student_id,hours_studied,attendance_percentage,label
+1,4,80,pass
+2,2,60,fail
+3,6,90,pass
+4,1,50,fail
